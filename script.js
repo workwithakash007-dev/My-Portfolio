@@ -1,16 +1,15 @@
-// ===== Navigation =====
+
 const navbar = document.getElementById('navbar');
 const hamburger = document.getElementById('hamburger');
 const navLinks = document.getElementById('navLinks');
 const navItems = document.querySelectorAll('.nav-links a');
 
-// Toggle mobile menu
 hamburger.addEventListener('click', () => {
     hamburger.classList.toggle('active');
     navLinks.classList.toggle('active');
 });
 
-// Close mobile menu when clicking a link
+
 navItems.forEach(item => {
     item.addEventListener('click', () => {
         hamburger.classList.remove('active');
@@ -18,7 +17,7 @@ navItems.forEach(item => {
     });
 });
 
-// Navbar background on scroll
+
 window.addEventListener('scroll', () => {
     if (window.scrollY > 50) {
         navbar.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.1)';
@@ -27,7 +26,7 @@ window.addEventListener('scroll', () => {
     }
 });
 
-// Active navigation link on scroll
+
 const sections = document.querySelectorAll('section');
 
 window.addEventListener('scroll', () => {
@@ -50,7 +49,7 @@ window.addEventListener('scroll', () => {
     });
 });
 
-// ===== Scroll to Top Button =====
+
 const scrollTopBtn = document.getElementById('scrollTop');
 
 window.addEventListener('scroll', () => {
@@ -68,54 +67,37 @@ scrollTopBtn.addEventListener('click', () => {
     });
 });
 
-// ===== Skill Progress Animation =====
-const skillBars = document.querySelectorAll('.skill-progress');
+const whatsappForm = document.getElementById('whatsapp-form');
 
-const animateSkills = () => {
-    skillBars.forEach(bar => {
-        const progress = bar.getAttribute('data-progress');
-        bar.style.width = `${progress}%`;
-    });
-};
-
-// Intersection Observer for skill animation
-const skillsSection = document.getElementById('skills');
-
-const skillsObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            animateSkills();
-            skillsObserver.unobserve(entry.target);
-        }
-    });
-}, { threshold: 0.3 });
-
-skillsObserver.observe(skillsSection);
-
-// ===== Contact Form =====
-const contactForm = document.getElementById('contactForm');
-
-contactForm.addEventListener('submit', (e) => {
+whatsappForm.addEventListener('submit', (e) => {
     e.preventDefault();
     
-    const name = document.getElementById('name').value;
-    const email = document.getElementById('email').value;
-    const subject = document.getElementById('subject').value;
-    const message = document.getElementById('message').value;
+    const name = document.getElementById('wa-name').value;
+    const email = document.getElementById('wa-email').value;
+    const subject = document.getElementById('wa-subject').value;
+    const message = document.getElementById('wa-message').value;
     
-    // Simple validation
     if (name && email && subject && message) {
-        // Show success message
-        alert(`Thank you ${name}! Your message has been received. I will get back to you soon.`);
         
-        // Clear form
-        contactForm.reset();
+        const fullMessage = `Hello Akash,\\n\\n*Name:* ${name}\\n*Email:* ${email}\\n*Subject:* ${subject}\\n\\n*Message:*\\n${message}`;
+        
+        
+        const whatsappLink = `https://wa.me/917683062688?text=${encodeURIComponent(fullMessage)}`;
+        
+        
+        window.open(whatsappLink, '_blank');
+        
+        
+        alert(`Thank you ${name}! WhatsApp will open to send your message.`);
+        
+        
+        whatsappForm.reset();
     } else {
         alert('Please fill in all fields.');
     }
 });
 
-// ===== Smooth Scroll for Anchor Links =====
+
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function(e) {
         e.preventDefault();
@@ -131,8 +113,8 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-// ===== Reveal Animation on Scroll =====
-const revealElements = document.querySelectorAll('.section-header, .about-content, .skills-content, .timeline-item, .contact-content');
+
+const revealElements = document.querySelectorAll('.section-header, .about-content, .skills-content, .timeline-item, .contact-content, .download-section');
 
 const revealObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
@@ -150,7 +132,7 @@ revealElements.forEach(el => {
     revealObserver.observe(el);
 });
 
-// ===== Typing Effect for Hero Title =====
+
 const heroTitle = document.querySelector('.hero-title');
 const originalText = heroTitle.textContent;
 
@@ -169,21 +151,3 @@ const typeWriter = () => {
     type();
 };
 
-// Run typing effect on page load
-window.addEventListener('load', () => {
-    setTimeout(typeWriter, 500);
-});
-
-// ===== Parallax Effect for Hero =====
-window.addEventListener('scroll', () => {
-    const scrolled = window.pageYOffset;
-    const hero = document.querySelector('.hero');
-    
-    if (hero) {
-        hero.style.backgroundPositionY = `${scrolled * 0.5}px`;
-    }
-});
-
-// ===== Console Welcome Message =====
-console.log('%c Welcome to Akash Kumar\'s Portfolio! ', 'background: linear-gradient(135deg, #6366f1, #06b6d4); color: white; font-size: 20px; padding: 10px 20px; border-radius: 10px;');
-console.log('%c Feel free to explore and connect! ', 'color: #6366f1; font-size: 14px;');
